@@ -7,6 +7,13 @@ FLAG = "flag{client_side_trust_is_dangerous}"
 @app.route("/")
 def home():
     return """
+    <style>
+        body {
+            background-color: #ffe6f2;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+
     <h2>Trust Issues 💔</h2>
     <p>This site keeps track of relationship status using cookies.</p>
     <p>Start here: <a href="/login">/login</a></p>
@@ -16,10 +23,16 @@ def home():
 @app.route("/login")
 def login():
     resp = make_response("""
+        <style>
+            body {
+                background-color: #ffe6f2;
+                font-family: Arial, sans-serif;
+            }
+        </style>
+
         <h3>Status Saved</h3>
         <p>Your relationship status has been set.</p>
         <p>Try visiting the <a href="/vault">vault</a>.</p>
-        <p><i>Hint: your browser remembers more than it should.</i></p>
     """)
     # storing trust on the client is probably a bad idea
     resp.set_cookie("status", "basic")
@@ -31,16 +44,31 @@ def vault():
 
     if user_status == "verified":
         return f"""
+        <style>
+            body {{
+                background-color: #ffe6f2;
+                font-family: Arial, sans-serif;
+            }}
+        </style>
+
         <h3>Secret Vault ❤️‍🔥</h3>
         <p>This account is marked as trusted.</p>
         <p><b>{FLAG}</b></p>
         """
+
     return """
+        <style>
+            body {
+                background-color: #ffe6f2;
+                font-family: Arial, sans-serif;
+            }
+        </style>
+
         <h3>Access Denied</h3>
         <p>You’re not trusted enough to view this page.</p>
-        <p>Hint: check your cookies.</p>
     """
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
+
 
